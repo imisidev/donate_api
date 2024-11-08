@@ -33,6 +33,15 @@ route.delete('/delete/:id',async(req,res)=>{
     } catch (error) {
         res.status(500).json(error);
     }
+});
+
+route.get('/blog/:id',async(req,res)=>{
+    try {
+        const blog = await Blog.findByPk(req.params.id);
+        res.status(200).json(blog);
+    } catch (error) {
+        res.status(500).json(error);
+    }
 })
 
 module.exports = route;

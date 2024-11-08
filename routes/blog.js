@@ -20,6 +20,19 @@ route.get('/blogs', async (req, res) => {
     } catch (error) {
         res.status(500).json(error);
     }
+});
+
+route.delete('/delete/:id',async(req,res)=>{
+    try {
+        await Blog.destroy({
+            where:{
+                id:req.params.id
+            }
+        });
+        res.status(200).json("deleted")
+    } catch (error) {
+        res.status(500).json(error);
+    }
 })
 
 module.exports = route;

@@ -7,12 +7,13 @@ const Blog = sequelize.define('Blog', {
     },
     date: {
         type: DataTypes.DATE,
+        defaultValue: new Date(),
     },
     category: {
         type: DataTypes.STRING,
     },
     content: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
     },
     author: {
         type: DataTypes.STRING,

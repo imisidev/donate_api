@@ -11,4 +11,15 @@ route.post('/create', async (req, res) => {
     }
 });
 
+route.get('/blogs', async (req, res) => {
+    try {
+        const blogs = await Blog.findAll({
+            order: [["createdAt", "DESC"]]
+        });
+        res.status(200).json(blogs);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
+
 module.exports = route;

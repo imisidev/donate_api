@@ -45,7 +45,7 @@ route.get('/blog/:id', async (req, res) => {
     }
 });
 
-route.get('/edit/:id', async (req, res) => {
+route.post('/edit/:id', async (req, res) => {
     try {
         const blog = await Blog.findByPk(req.params.id);
         const updatedBlog = await blog.update(req.body);

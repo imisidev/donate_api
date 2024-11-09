@@ -1,6 +1,7 @@
 const Router = require("express");
 const route = Router();
 const { Blog } = require('../models/Blogs');
+const { where } = require("sequelize");
 
 route.post('/create', async (req, res) => {
     try {
@@ -22,11 +23,11 @@ route.get('/blogs', async (req, res) => {
     }
 });
 
-route.delete('/delete/:id',async(req,res)=>{
+route.delete('/delete/:id', async (req, res) => {
     try {
         await Blog.destroy({
-            where:{
-                id:req.params.id
+            where: {
+                id: req.params.id
             }
         });
         res.status(200).json("deleted")
@@ -35,13 +36,23 @@ route.delete('/delete/:id',async(req,res)=>{
     }
 });
 
-route.get('/blog/:id',async(req,res)=>{
+route.get('/blog/:id', async (req, res) => {
     try {
         const blog = await Blog.findByPk(req.params.id);
         res.status(200).json(blog);
     } catch (error) {
         res.status(500).json(error);
     }
-})
+});
+
+route.get('/edit/:id', async (req, res) => {
+    try {
+        const blog = await Blog.findByPk(req.params.id);
+        const updatedBlog = await blog.update(req.body);
+        res.status(200).json(updatedBlog);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
 
 module.exports = route;
